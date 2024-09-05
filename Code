@@ -1,0 +1,41 @@
+import csv
+
+search_name = input('Give a name of an NBA player: ')
+
+def find_rows_by_name(file_name, search_name):
+    matching_rows = []
+
+    # Open the CSV file
+    with open(file_name, mode='r', newline='', encoding='utf-8') as csvfile:
+        reader = csv.reader(csvfile)
+
+        for row in reader:
+            if search_name in row:
+                matching_rows.append(row)
+
+    return matching_rows
+
+file_name = 'all_seasons.csv' 
+result = find_rows_by_name(file_name, search_name)
+
+if result:
+    print(f"Data for '{search_name}':")
+    
+    score_average = []
+    assist_average = []
+    rebound_average = []
+    
+    for row in result:
+        print(row)
+        score_average.append(float(row[12]))
+        assist_average.append(float(row[14]))# 
+        rebound_average.append(float(row[13]))
+
+    points = sum(score_average) / len(score_average)
+    assist = sum(assist_average) / len(assist_average)
+    rebounds = sum(rebound_average) / len(rebound_average)
+
+    print(f"Average of points in his career:   {points} \n Average assists in career {assist}, \n Average rebounds in career {rebounds}")
+
+else:
+    print(f"'{search_name}' not found in the file.")
